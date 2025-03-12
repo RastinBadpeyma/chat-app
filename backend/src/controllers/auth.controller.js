@@ -1,3 +1,4 @@
+import cloudinary from '../lib/cloudinary.js';
 import { generateToken } from '../lib/utils.js';
 import User from '../models/user.model.js';
 
@@ -79,6 +80,28 @@ export const logout = (req , res) =>{
     res.status(200).json({message: "logged out successfully"});
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export const UpdateProfile = async (req,res) => {
+  try {
+    const { profilePic } = req.body;
+
+    if (!profilePic) {
+      return res.status(400).json({message:"Profile pic is required"});
+    }
+
+    const upload = await cloudinary.uploader.upload(profilePic);
+    const updateUser = await User.findByIdAndUpdate({
+       userId: req.user._id,
+       profilePic: upload.secure_url ,
+       new : true 
+  });
+
+  res.status(200).json(updateUser);
+  } catch (error) {
+    console.log("error in update profile:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
