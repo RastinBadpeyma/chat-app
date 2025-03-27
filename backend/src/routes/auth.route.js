@@ -10,7 +10,9 @@ import { auth } from "../middleware/auth.middleware.js";
 
 const authRouter = express.Router();
 
-
+// authRouter.get('/cookie' , function (req,res) {
+//    console.log('Cookies:' , req.cookies);
+// })
 authRouter.post("/register", register);
 authRouter.post("/login", login);
 authRouter.post('/logout' , logout)
