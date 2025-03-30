@@ -6,15 +6,22 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const RegisterPage = () => {
+   // State to toggle password visibilit
   const [showPassword, setShowPassword] = useState(false);
+
+   // State to hold user input data
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
   });
 
+
+  // Get the register function and loading state from the authentication store
   const { register, isRegistering } = useAuthStore();
 
+
+   // Form validation function
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required");
     if (!formData.email.trim()) return toast.error("Email is required");
@@ -25,6 +32,7 @@ const RegisterPage = () => {
     return true;
   };
 
+  // Handle form submission after validation
   const handleSubmit = (e) => {
     e.preventDefault();
 

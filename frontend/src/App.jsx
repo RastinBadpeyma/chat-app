@@ -16,6 +16,7 @@ import {Loader} from "lucide-react";
 const App = () => {
     const {authUser , checkAuth , isCheckingAuth} = useAuthStore();
 
+    // Runs once when the component mounts to check if the user is authenticated
     useEffect(() => {
       checkAuth()
     },[checkAuth]);
