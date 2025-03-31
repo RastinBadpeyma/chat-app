@@ -9,12 +9,16 @@ import ProfilePage from "./pages/ProfilePage";
 
 import { Routes, Route , Navigate } from "react-router";
 import { useAuthStore } from "./store/useAuthStore";
+import { useThemeStore } from "./store/useThemeStore";
 import { useEffect } from "react";
+
 
 import {Loader} from "lucide-react";
 
 const App = () => {
     const {authUser , checkAuth , isCheckingAuth} = useAuthStore();
+
+    const { theme } = useThemeStore();
 
     // Runs once when the component mounts to check if the user is authenticated
     useEffect(() => {
@@ -32,7 +36,7 @@ const App = () => {
  
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>
