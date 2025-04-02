@@ -43,7 +43,7 @@ const RegisterPage = () => {
 
   return ( 
 
-    <div className="min-h-screen justify-center">
+    <div className="min-h-screen grid">
       {/* left side */}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
