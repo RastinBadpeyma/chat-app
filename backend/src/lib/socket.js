@@ -11,12 +11,22 @@ const io = new Server(server , {
    }
 });
 
+const userSocket = {};
+
+
 io.on("connection" , (socket) => {
  console.log("A user connected" , socket.id);
 
+ const userId = socket.handshake.query.userId;
+ if (userId) userSocket[userId] = socket.id
+
+  io.emit("getOnlineUsers" , Object.keys(userSocket));
+
  socket.on("disconnect" , () => {
    console.log("A user disconnect" , socket.id);
- });
+   delete userSocket[userId];
+   io.emit("getOnlineUsers" , Object.keys(userSocket));
+});
 })
 
 export {io , app , server};
