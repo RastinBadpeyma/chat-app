@@ -3,31 +3,35 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-// Zustand store for authentication
+// Authentication and User Management Store
+// Handles user authentication, registration, and real-time online status
 export const useAuthStore = create((set , get) => ({
-   // Stores the authenticated user
-   authUser: null,
-   isRegistering: false,
-   isLoggingIn: false,
-   isUpdatingProfile: false,
-   isCheckingAuth: true, // Initially checking authentication status
-   onlineUsers: [],
-   socket:null,
+  // State Management
+   authUser: null,                    // Currently authenticated user object
+   isRegistering: false,             // Loading state during user registration
+   isLoggingIn: false,               // Loading state during user login
+   isUpdatingProfile: false,         // Loading state during profile updates
+   isCheckingAuth: true,             // Initial authentication check state
+   onlineUsers: [],                  // Array of currently online user IDs
+   socket: null,                     // Socket.io connection instance
 
 
-   // Function to check if the user is authenticated
+  // Authentication Check
+   // Runs on app initialization to verify user session
    checkAuth: async () => {
       try {
          const res = await axiosInstance.get("/auth/check");
          set({ authUser: res.data });
          get().connectSocket();
       } catch (error) {
+         console.log("error in checkAuth:", error);
          set({ authUser: null });
       }finally{
          set({ isCheckingAuth: false });
       }
    },
-   // Function to register a new user
+     // User Registration
+   // Creates a new user account
    register: async (data) => {
       set({ isRegistering: true });
       try {
@@ -42,7 +46,8 @@ export const useAuthStore = create((set , get) => ({
       }
     },
 
-    
+    // User Logout
+   // Ends the current user session
   logout: async () => {
    try {
      await axiosInstance.post("/auth/logout");
@@ -54,6 +59,8 @@ export const useAuthStore = create((set , get) => ({
    }
  },
 
+  // User Login
+   // Authenticates an existing user
  login: async (data) => {
    set({ isLoggingIn: true });
    try {
@@ -68,6 +75,8 @@ export const useAuthStore = create((set , get) => ({
    }
  },
 
+ // User Profile Update
+ // Updates the user's profile information
  updateProfile: async (data) => {
    set({ isUpdatingProfile: true });
    try {
@@ -82,10 +91,13 @@ export const useAuthStore = create((set , get) => ({
    }
  },
 
+ // Socket.io Connection Setup
+   // Establishes real-time connection
  connectSocket: () => {
   const {authUser} = get();
   if (!authUser || get().socket?.cconnect) return;
 
+  // Initialize socket connection with user ID
   const socket = io("http://localhost:5001" ,{
     query: {
       userId: authUser._id,
@@ -95,11 +107,14 @@ export const useAuthStore = create((set , get) => ({
 
   set({socket:socket});
 
+  // Listen for online users updates
   socket.on("getOnlineUsers" , (userIds) => {
     set({onlineUsers: userIds});
   })
  },
 
+  // Socket.io Disconnection
+  // Cleans up socket connection
  disconnectSocket: () => {
   if (get().socket?.connected) get().socket.disconnect();
  }

@@ -7,16 +7,23 @@ const PREVIEW_MESSAGES = [
   { id: 2, content: "Yeah! It looks amazing. Great job.", isSent: true },
 ];
 
+/**
+ * SettingsPage Component
+ * Allows users to customize the application theme and view a preview.
+ */
 const SettingsPage = () => {
+  // Get theme state and setter from theme store
   const { theme, setTheme } = useThemeStore();
 
   return (
     <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
       <div className="space-y-6">
+        {/* Theme Selection Header */}
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold">Theme</h3>
         </div>
 
+        {/* Theme Grid */}
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
           {mode.map((t) => (
             <button
@@ -27,6 +34,7 @@ const SettingsPage = () => {
               `}
               onClick={() => setTheme(t)}
             >
+              {/* Theme Preview */}
               <div className="relative h-8 w-full rounded-md overflow-hidden" data-theme={t}>
                 <div className="absolute inset-0 grid grid-cols-4 gap-px p-1">
                   <div className="rounded bg-primary"></div>
@@ -110,4 +118,5 @@ const SettingsPage = () => {
     </div>
   );
 };
+
 export default SettingsPage;

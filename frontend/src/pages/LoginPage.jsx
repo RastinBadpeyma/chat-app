@@ -4,6 +4,10 @@ import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
 
+/**
+ * LoginPage Component
+ * Handles user authentication with email and password.
+ */
 const LoginPage = () => {
     // State for toggling password visibility
   const [showPassword, setShowPassword] = useState(false);

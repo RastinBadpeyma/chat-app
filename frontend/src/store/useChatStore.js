@@ -2,13 +2,18 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 
+// Chat Functionality Store
+// Manages chat messages, user list, and message operations
 export const useChatStore = create((set, get) => ({
-  messages: [],
-  users: [],
-  selectedUser: null,
-  isUsersLoading: false,
-  isMessagesLoading: false,
+  // State Management
+  messages: [],                      // Array of chat messages
+  users: [],                         // List of available users
+  selectedUser: null,                // Currently selected chat partner
+  isUsersLoading: false,             // Loading state for user list
+  isMessagesLoading: false,          // Loading state for messages
 
+  // Fetch Users
+  // Retrieves list of available users for chat
   getUsers: async () => {
     set({ isUsersLoading: true });
     try {
@@ -21,6 +26,8 @@ export const useChatStore = create((set, get) => ({
     }
   },
 
+  // Fetch Messages
+  // Retrieves chat messages for a specific user
   getMessages: async (userId) => {
     set({ isMessagesLoading: true });
     try {
@@ -34,6 +41,8 @@ export const useChatStore = create((set, get) => ({
   },
 
 
+   // Send Message
+  // Sends a new message to the selected user
   sendMessage: async (messageData) => {
    const { selectedUser, messages } = get();
    try {
@@ -45,6 +54,7 @@ export const useChatStore = create((set, get) => ({
  },
 
 
-
+  // Set Selected User
+  // Updates the currently selected chat partner
  setSelectedUser: (selectedUser) => set({ selectedUser }),
 }));
