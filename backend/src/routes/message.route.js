@@ -8,7 +8,7 @@ import{
 import { auth } from '../middleware/auth.middleware.js';
 const router = express.Router();
 
-router.get('./users' , auth , SidebarUsers);
+router.get('/users' , auth , SidebarUsers);
 router.get('/:id' , auth , getMessage);
 
 router.post('/send/:id' , auth , sendMessage);
