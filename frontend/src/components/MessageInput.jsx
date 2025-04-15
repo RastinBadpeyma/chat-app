@@ -3,14 +3,18 @@ import { useChatStore } from "../store/useChatStore";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 
-
+/**
+ * MessageInput Component
+ * Handles message composition and image attachments
+ */
 const MessageInput = () => {
+  // State for message text and image preview
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
- 
 
+  // Handle image file selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
@@ -22,14 +26,15 @@ const MessageInput = () => {
       setImagePreview(reader.result);
     };
     reader.readAsDataURL(file);
-
   };
 
+  // Remove selected image
   const removeImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  // Handle message submission
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
@@ -40,7 +45,7 @@ const MessageInput = () => {
         image: imagePreview,
       });
 
-      // Clear form
+      // Clear form after successful send
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";

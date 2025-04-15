@@ -1,8 +1,12 @@
-
 import { Users } from "lucide-react";
 
+/**
+ * SidebarSkeleton Component
+ * Loading skeleton for the sidebar contacts list
+ * Shows placeholder UI while contacts are being loaded
+ */
 const SidebarSkeleton = () => {
-  // Create 8 skeleton items
+  // Create 8 skeleton items for contacts
   const skeletonContacts = Array(8).fill(null);
 
   return (
@@ -10,7 +14,7 @@ const SidebarSkeleton = () => {
       className="h-full w-20 lg:w-72 border-r border-base-300 
     flex flex-col transition-all duration-200"
     >
-      {/* Header */}
+      {/* Sidebar header */}
       <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center gap-2">
           <Users className="w-6 h-6" />
@@ -18,7 +22,7 @@ const SidebarSkeleton = () => {
         </div>
       </div>
 
-      {/* Skeleton Contacts */}
+      {/* Skeleton contacts list */}
       <div className="overflow-y-auto w-full py-3">
         {skeletonContacts.map((_, idx) => (
           <div key={idx} className="w-full p-3 flex items-center gap-3">

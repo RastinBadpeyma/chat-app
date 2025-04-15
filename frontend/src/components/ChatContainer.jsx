@@ -7,6 +7,10 @@ import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
 
+/**
+ * ChatContainer Component
+ * Main chat interface that displays messages and handles real-time updates
+ */
 const ChatContainer = () => {
   const {
     messages,
@@ -44,13 +48,6 @@ const ChatContainer = () => {
   }
 
   return (
-
-    // <div className="flex-1 flex flex-col overflow-auto">
-    //   <ChatHeader />
-    //   <p>messages...</p>
-    //   <MessageInput />
-
-    // </div>
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
