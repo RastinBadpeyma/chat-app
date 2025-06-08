@@ -4,7 +4,14 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:stop": "pm2 stop chat-app-backend",
+    "pm2:restart": "pm2 restart chat-app-backend",
+    "pm2:delete": "pm2 delete chat-app-backend",
+    "pm2:logs": "pm2 logs chat-app-backend",
+    "pm2:monitor": "pm2 monit chat-app-backend",
+    "pm2:list": "pm2 list chat-app-backend"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +19,9 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.0",
+    "cloudinary": "^2.6.0",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
@@ -20,6 +29,7 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "pm2": "^6.0.5"
   }
 }
