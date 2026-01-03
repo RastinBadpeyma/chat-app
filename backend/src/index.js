@@ -11,7 +11,9 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5001;
 
-app.use(express.json());
+// Increase payload limits to allow base64 image uploads from the client
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 app.use(cors({
    origin: "http://localhost:5173",
